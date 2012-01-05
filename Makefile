@@ -14,8 +14,10 @@ TARGET="NONE"
 atlas: boot.o 
 	ld -r $(LDFLAGS)elf.ld $(out_dir)$(OBJ) -o ./Atlas.o 
 
-target: boot.o 
-	ld $(LDFLAGS)complete.ld $(out_dir)$(OBJ) $(TARGET) -o ./Atlas_Complete.bin
+target: atlas 
+	dd if=/dev/zero of=$(out_dir)fluff.bin bs=1M count=10
+	ld $(LDFLAGS)complete.ld Atlas.o $(TARGET) -o ./bin/Atlas_Complete.bin
+	cat ./bin/Atlas_Complete.bin ./bin/fluff.bin > Atlas_Complete.img
 
 boot.o:
 	mkdir -p ./bin/

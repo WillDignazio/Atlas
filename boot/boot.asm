@@ -7,7 +7,7 @@
 ; the kernel.
 [BITS 16]
 [global boot_load] 
-[extern init]
+[extern initialize]
 [SECTION .boot]
 boot_load:
 
@@ -25,7 +25,7 @@ boot_load:
   call load			; Load the init program  
   mov si, attempt
   call printxt
-  call init 		; Call the grabber outide of the bootloader
+  call initialize 	; Call the grabber outide of the bootloader
 
 ; Load init 
 ;	- Loads the init program from the boot drive

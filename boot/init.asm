@@ -7,9 +7,9 @@
 ;; calling the kernel's start stublet. 
 [BITS 16]
 [extern start]
-[global init]
+[global initialize]
 [SECTION .init]
-jmp init 
+jmp initialize
 
 %include "gdt.inc"
 %include "print.inc"
@@ -17,7 +17,8 @@ jmp init
 %define	DATA_DESCRIPTOR		0x10
 %define CODE_DESCRIPTOR		0x08
 
-init:
+initialize:
+  xchg bx, bx
   cli
   xor ax, ax			; Set up a flat structure 
   mov ds, ax
@@ -26,13 +27,14 @@ init:
   mov ss, ax
   mov sp, 0xFFFF		; Move the pointer way off.  
   sti
-  
+  xchg bx, bx
+
   mov [bootdrv], dl
  .systemcheck:
   call setvideo  		; Setting the video mode clears the screen. 
   mov si, vidmode
   call printxt
-  
+
   mov si, grabinit
   call printxt			
   
@@ -143,8 +145,8 @@ status db 	0x02, 'Status: ', 0x03
 errcode db	0x02, 'Error Code: ', 0x03
 done	db	0x02, '::Done.', 0x0A, 0x0D, 0x03
 notxt	db	0x02, 'ERROR, NOT A STRING', 0x0D, 0x0A, 0x03
-grabinit db	0x02, 'Kernel Grab Initiated:', 0x0D, 0x0A, 0x03
-kinit	db	0x02, 'Kernel Initializing:', 0x0D, 0x0A, 0x03
+grabinit db	0x02, 'Data Load Initiated:', 0x0D, 0x0A, 0x03
+kinit	db	0x02, 'Atlas Initializing:', 0x0D, 0x0A, 0x03
 gdtinit	db	0x02, '::Setting Up GDT', 0x0D, 0x0A, 0x03
 pmodeinit db 0x02, '::Entering Protected Mode', 0x0D, 0x0A, 0x03
 enablingA20 db 0x02, '::Enabling A20', 0x0D, 0x0A, 0x03
