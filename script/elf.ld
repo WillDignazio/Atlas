@@ -5,5 +5,5 @@ SECTIONS
 	. = 0x7C00; 
 	.boot : AT(0x0) { *(.boot) }
 	. = 0x500; 
-	.grab : AT(0x200) { *(.grab) }
+	.init : AT(0x200) { *(.init) }
 }

@@ -7,17 +7,17 @@
 ;; calling the kernel's start stublet. 
 [BITS 16]
 [extern start]
-[global grabber]
-[SECTION .grab]
-jmp grabber 
+[global init]
+[SECTION .init]
+jmp init 
 
-%include "./boot/gdt.inc"
-%include "./boot/print.inc"
-%include "./boot/a20.inc"
+%include "gdt.inc"
+%include "print.inc"
+%include "a20.inc"
 %define	DATA_DESCRIPTOR		0x10
 %define CODE_DESCRIPTOR		0x08
 
-grabber:
+init:
   cli
   xor ax, ax			; Set up a flat structure 
   mov ds, ax
@@ -34,7 +34,7 @@ grabber:
   call printxt
   
   mov si, grabinit
-  call printxt			; We've nearing the end of the boot process...
+  call printxt			
   
   mov si, isA20
   call printxt
@@ -53,8 +53,7 @@ grabber:
 
   ; Kernel Initialization 
   mov si, kinit
-  call printxt
-
+  call printxt 
   mov si, gdtinit 
   call printxt 
   call gdt_install		; Install the gdt descriptors

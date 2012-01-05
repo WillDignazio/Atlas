@@ -1,0 +1,11 @@
+							Atlas Bootloader
+						=======================
+
+Author	: Will Dignazio
+Date	: 01/04/2012
+
+	Originally part of the Sandbox Operating System project, it soon 
+became apparent that the bootloader was essentially it's own program. That
+bootloader, now named Atlas, could be very useful for booting virtually any
+compiled code, given the right dependencies. 
+
