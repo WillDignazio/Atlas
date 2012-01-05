@@ -29,7 +29,8 @@ disk.
 		2. make target TARGET=X
 			- X == elf object file to bind to 
 			- Uses the ./script/complete.ld script 
-			- Creates both Atlas.o, and Atlas_Complete.img file
-			- Atlas_Complete.img should be fully bootable. 
+			- Creates both Atlas.o, and Atlas.img file
+			- Atlas.img should be fully bootable. 
+			- Atlas.o is a linkable verion. 
 
 
