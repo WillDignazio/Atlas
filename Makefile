@@ -26,4 +26,8 @@ boot.o:
 
 
 clean: 
-	rm -rf $(out_dir)
+	@echo "Cleaning..."
+	@rm -rf $(out_dir)
+	@rm -f ./Atlas.o 
+	@rm -f ./Atlas_Complete.img
+
