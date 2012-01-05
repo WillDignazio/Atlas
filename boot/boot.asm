@@ -6,7 +6,6 @@
 ; exits to it. The bootloader does nothing but load the necessary code for 
 ; the kernel.
 [BITS 16]
-%include "print.inc"
 [global boot_load] 
 [extern init]
 [SECTION .boot]
@@ -26,7 +25,6 @@ boot_load:
   call load			; Load the init program  
   mov si, attempt
   call printxt
-  jmp $ 
   call init 		; Call the grabber outide of the bootloader
 
 ; Load init 
@@ -81,6 +79,43 @@ warmreboot:
   mov ds, ax		; set data segment here
   mov word[72h], 1234h	; warm reboot val
   jmp 0ffffh:0		; jmp and execute
+
+
+; Print Character
+;	- print a single character to the terminal
+; 	- the character printed should be in the al
+print: 
+  mov ah, 0Eh
+  mov bh, 0
+  mov bl, 07h
+  int 10h
+  ret 
+
+; Print Text 
+;	- print a series of characters, a string of text, to the terminal 
+; 	- move the address of the text to si
+; 	- the first character must be the startoftext char (STX), ASII value 2
+printxt: 
+  mov al, [si]
+  cmp al, 02h			; Compare to STX
+  jne .error
+
+ .print: 
+  inc si				; next character
+  mov al, [si]			; grab value at si
+  cmp al, 03h			; compare to end of text value 
+  je .done
+  call print 			; print the character
+  jmp .print
+ .done: 
+  ret 
+
+ .error: 
+  mov si, notxt 
+  call printxt 
+  ret
+
+
 
 wReboot db 0x02, 'PRESS ANY KEY TO REBOOT', 0x0A, 0x0D, 0x03
 attempt db 0x02, 'Exiting the Bootloader...', 0x0A, 0x0D, 0x03

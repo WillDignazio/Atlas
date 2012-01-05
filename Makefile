@@ -14,7 +14,7 @@ TARGET="NONE"
 atlas: boot.o 
 	ld -r $(LDFLAGS)elf.ld $(out_dir)$(OBJ) -o ./Atlas.o 
 
-target: 
+target: boot.o 
 	ld $(LDFLAGS)complete.ld $(out_dir)$(OBJ) $(TARGET) -o ./Atlas_Complete.bin
 
 boot.o:
