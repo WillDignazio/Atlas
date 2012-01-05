@@ -31,9 +31,17 @@ init:
   mov sp, 0xFFFF			; Move the pointer way off.  
   sti
   
-  mov [bootdrv], dl
- .systemcheck:
+  mov [bootdrv], dl			; Save the boot drive
+
   call setvideo  			; Setting the video mode clears the screen. 
+  
+  mov si, aengage			; Get Fancy 
+  call printxt
+
+  mov si, newline
+  call printxt
+
+ .systemcheck:
   
   mov si, readinit
   call printxt			
@@ -133,6 +141,8 @@ devres:
   pop ds			; Recover data segment address
   ret
 
+newline		db 	0x02, 0x0D, 0x0A, 0x03
+aengage		db	0x02, '{ ATLAS ENGAGED }', 0x0D, 0x0A, 0x03
 yes 		db 	0x02, 'YES', 0x0D, 0x0A, 0x03
 no 			db	0x02, 'NO', 0x0D, 0x0A, 0x03
 isA20 		db	0x02, '::A20 Enabled: ', 0x03
