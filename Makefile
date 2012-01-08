@@ -1,3 +1,6 @@
+VERSION=0.01
+NAME=ATLAS
+
 CC=nasm
 out_dir=./bin/
 INC=./inc/
@@ -17,7 +20,7 @@ atlas: boot.o
 target: atlas 
 	dd if=/dev/zero of=$(out_dir)fluff.bin bs=1M count=10
 	ld $(LDFLAGS)complete.ld Atlas.o $(TARGET) -o ./bin/Atlas_Complete.bin
-	cat ./bin/Atlas_Complete.bin ./bin/fluff.bin > Atlas_Complete.img
+	cat $(out_dir)Atlas_Complete.bin $(out_dir)/fluff.bin > Atlas.img
 
 boot.o:
 	mkdir -p ./bin/

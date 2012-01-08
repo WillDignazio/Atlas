@@ -1,0 +1,54 @@
+Atlas Boot Process
+==================
+
+Author	: Will Dignazio 
+Date	: 01/05/2012
+
+	The Atlas bootloader has the unique ability of booting a independant 
+piece of code linked to it. The process through which Atlas goes is largely
+no different from the way modern operating system's boot, however Atlas is 
+special in that it sets up a volatile but powerful environment for code. 
+	So long as a piece of software either uses Atlas's built in libraries 
+or has it's own, a piece of code can behave normally upon boot. This is 
+because After the initial boot phase, Atlas does the courtesy of setting 
+up a GDT and entering protected mode. This essentially sets up the same 
+environment that a kernel would use, and in the side git repo of SOS, does. 
+
+1. The Bootsector
+-------------------
+	As per IA32, the first 512 bytes of the drive must be the bootsector in 
+which the operating system is loaded. Atlas does just as the processor 
+expects, and has a built in bootloader, only it is very minimalistic, and 
+does nothing but load the init code. 
+	The process is very simple: 
+			1. The processor loads 0x0 - 0x200 to 0x7C00
+				in physical memory. 
+			2. The code there is executed, this code is the 
+				file ./boot/boot.asm. 
+			3. In Atlas's case, it stays in real mode to use 
+				the BIOS to load two sectors (the size of init) 
+				into physical memory. 
+			4. Atlas loads init to 0x500 of the physical memory
+				and executes it. 
+	
+	After this process, the bootsector at 0x7C00 in physical memory is not
+necessary, and does have to be worried about if the code being loaded in 
+by init is large. 
+
+2. init
+------------
+	After the bootsector file has finished, and the init file has been 
+loaded to 0x500 of physical memory, the setup of the environment begins. 
+Init in the beginning is still a real mode program, and sets up a set 
+flat segment region where it can execute its code. Since the init function 
+is no longer required to fit within 512 bytes, it can include the GDT, print
+, and A20 functionality include files. 
+	The init file also defines the soon to be code descriptor as 0x08, and 
+the data descriptor as 0x10. These values will the default as second and 
+third entries in the temporary GDT table to be established. 
+	After reading a fair maximum of 127 sectors to memory, starting at 
+0x5000, init goes on to enter protected mode and enable the A20 address line
+. This allows the standard functionality on modern operating system, but 
+gives that control to the code proceding Atlas.
+
+

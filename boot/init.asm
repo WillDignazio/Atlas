@@ -15,9 +15,9 @@
 [SECTION .init]
 jmp init 
 
-%include "gdt.inc"
-%include "print.inc"
-%include "a20.inc"
+%include "atlas/gdt.inc"
+%include "atlas/print.inc"
+%include "atlas/a20.inc"
 %define	DATA_DESCRIPTOR		0x10
 %define CODE_DESCRIPTOR		0x08
 
