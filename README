@@ -1,4 +1,4 @@
-							Atlas Bootloader
+						 Atlas Kernel Platform 
 						=======================
 
 Author	: Will Dignazio
@@ -10,6 +10,10 @@ bootloader, now named Atlas, could be very useful for booting virtually any
 compiled code, given the right dependencies. Currently the most compatible 
 with the IA32 architecture, the Atlas bootloader works hand in hand with the
 processor, with no crazy hacks behind the scenes. 
+
+	Read BINDING to get a more detailed explanation of how to bind Atlas
+to an object file. The BINDING guides how to bind with or without targeting 
+a specific file for linking.  
 
 1. Build Options
 ------------------
