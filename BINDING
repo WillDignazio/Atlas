@@ -20,8 +20,28 @@ Binding To Atlas.o
 
 			gcc -m32 -c -I /path/to/include/ $(file).c -o $(file).o 
 
+Standard Bind: 
+	
+	Assuming a file has been made with the preceding requirements, you 
+	can simply bind to an object file using make target. The makefile for 
+	Atlas allows you to target a specific file for binding, and makes the 
+	linking process very easy. 
+
+	To link Atlas with target binding: 
+		
+		make target TARGET=$(OBJFILE)
+
+	Output: 
+		Atlas will produce a file called Atlas.img that is the direct 
+		image output of the file you targeted with Atlas bound to it. 
+		This file can be renamed or moved with no issue, it is a fully 
+		portable file that is ready to be burned to a disk. 
+
+		I prefer to use qemu-system-32 to test the images, it boots fast 
+		and has been proven to reliably boot Atlas. 
 
 No Target Binding: 
+
 	No target binding implies that you have made (make) the Atlas.o 
 	object with or without the base libraries. After the object file 
 	has been made, it can be linked (bound) to a relocatable file 
