@@ -27,7 +27,7 @@ disk.
 			- Use one of the linker scripts to link to code object
 			- File output by default is Atlas.o in the source directory
 		2. make target TARGET=X
-			- X == elf object file to bind to 
+			- X = elf object file to bind to 
 			- Uses the ./script/complete.ld script 
 			- Creates both Atlas.o, and Atlas.img file
 			- Atlas.img should be fully bootable. 
