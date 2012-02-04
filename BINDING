@@ -58,8 +58,14 @@ No Target Binding:
 
 		Example Link: 
 			ld -T /path/to/script/script.ld Atlas.o $(OBJFILE) -o $(OUTPUT)
-		
+			*WARNING
 
+WARNING: 
+	Atlas as of the current version is only capable of loading 127 sector from the disk. This is a STATIC value, meaning that if there is not 127 
+sectors on the hard disk, Atlas will fault and fail. To compensate for 
+this, Atlas target build cat's 10 megabytes of data just to be safe. If 
+the program being booted by atlas is not 127 sectors in size, the system 
+WILL FAIL. 
 
 
 
