@@ -1,0 +1,46 @@
+Binding To Atlas.o
+	Requirements: 
+		1. The file to be linked to Atlas must have a function called
+		start(). At linking Atlas will look for the start identifier
+		to call at boot. 
+		
+		2. The object file to link to must be compiled with the 
+		relocatable flag. This will allow it to at a later time have
+		atlas fill in the blanks of functions like the base text 
+		video library. 
+		
+		3. The object file to link must be set explicitly for thirty
+		bit compilation. Atlas is currently a thirty two bit system, 
+		and only thirty two bit code will link and boot. 
+
+		ex. 
+			gcc -m32 -c $(file).c -o $(file).o 
+
+			or
+
+			gcc -m32 -c -I /path/to/include/ $(file).c -o $(file).o 
+
+
+No Target Binding: 
+	No target binding implies that you have made (make) the Atlas.o 
+	object with or without the base libraries. After the object file 
+	has been made, it can be linked (bound) to a relocatable file 
+	that will be the kernel. 
+		Process: 
+			After the kernel or program has been succesfully been compiled
+			, the file can be linked to Atlas using a linker script. A 
+			premade script can be found in the scripts folder, it must be 
+			used for Atlas to successfully boot a kernel or program. 
+			
+			The output format is described in the linker script, and the 
+			final output must be in the binary format, allowing direct
+			translation from the processor. 
+
+		Example Link: 
+			ld -T /path/to/script/script.ld Atlas.o $(OBJFILE) -o $(OUTPUT)
+		
+
+
+
+
+
