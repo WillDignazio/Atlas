@@ -1,20 +1,20 @@
 Atlas Kernel Platform 
 ---------------------
 
-	Originally part of the Sandbox Operating System project, it 
+Originally part of the Sandbox Operating System project, it 
 became apparent that the bootloader was essentially it's own program. That
 bootloader, now named Atlas, could be very useful for booting virtually any
 compiled code, given the right dependencies. Currently the most compatible 
 with the IA32 architecture, the Atlas bootloader works hand in hand with the
 processor, with no crazy hacks behind the scenes. 
 
-	Read BINDING to get a more detailed explanation of how to bind Atlas
+Read BINDING to get a more detailed explanation of how to bind Atlas
 to an object file. The BINDING guides how to bind with or without targeting 
 a specific file for linking.  
 
 1. Build Options
 ================
-	There are two primary build options available, one is to build Atlas 
+There are two primary build options available, one is to build Atlas 
 without binding it immediately to the desired code. The other is to build 
 Atlas, and immediately bind it to a compiled object file, allowing it to 
 boot immediately. There is no advantage to the other, it just a matter of 
