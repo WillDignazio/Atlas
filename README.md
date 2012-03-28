@@ -23,6 +23,7 @@ however the second option creates an entire image ready to be written to a
 disk. 
 	
 	The commands are: 
+
 		1. make 
 			- Creates elf-i386 object file
 			- Use one of the linker scripts to link to code object
