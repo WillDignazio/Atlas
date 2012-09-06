@@ -17,10 +17,13 @@ TARGET="NONE"
 # By default if there is no extra options set, 
 # the bootloader will produce a linkable object file. 
 # that requires the linker script to compile with. 
-atlas: boot.o base.o
+atlas: boot.o 
 	@echo "linking..."
 	$(LD) -r $(LDFLAGS)elf.ld $(out_dir)*.o -o ./Atlas.o
 
+all: atlas textmode.o
+	@echo "linking..." 
+	$(LD) -r $(LDFLAGS)elf.ld $(out_dir)*.o -o ./Atlas.o
 target: atlas 
 	dd if=/dev/zero of=$(out_dir)fluff.bin bs=1M count=10
 	$(LD) $(LDFLAGS)complete.ld Atlas.o $(TARGET) -o ./bin/Atlas_Complete.bin
@@ -31,7 +34,7 @@ boot.o:
 	$(AS) $(AFLAGS) ./boot/boot.asm -o $(out_dir)boot.o
 	$(AS) $(AFLAGS) ./boot/init.asm -o $(out_dir)init.o
 
-base.o:
+textmode.o: 
 	$(CC) $(CFLAGS) ./base/textmode.c -o $(out_dir)textmode.o 
 
 clean: 
